@@ -65,6 +65,7 @@ console.log(222);
 
 输出结果：222 111
 原因：`console` 在调用栈中，`queueMicrotask` 在微任务队列中。
+
 **例 2**
 
 ```javascript
@@ -79,6 +80,7 @@ Promise.resolve(10).then(() => {
 
 输出结果：111 333
 原因：两者都在微任务队列中，谁在前，谁先进调用栈。
+
 **例 3**
 
 ```javascript
@@ -96,6 +98,7 @@ queueMicrotask(() => {
 
 输出结果：222 111 333
 原因：先把第一个 `then` 回调函数放到微任务队列，然后将 `queueMicrotask` 放到微任务队列，最后将 `setTimeout` 放到宏任务队列。
+
 **例 4**
 
 ```javascript
