@@ -1,75 +1,94 @@
-// function f1() {
-//   return Promise.resolve(10);
+// // function f1() {
+// //   return Promise.resolve(10);
+// // }
+
+// // f1().then((res) => console.log(res));
+
+// // async function f2() {
+// //   return 10;
+// // }
+
+// // f2().then((res) => console.log(res));
+
+// function sum(a, b) {
+//   return new Promise((resolve, reject) => {
+//     resolve(a + b);
+//   }, 1000);
+// }
+// async function f3() {
+//   sum(111, 222)
+//     .then((res) => {
+//       return sum(res, 333);
+//     })
+//     .then((res) => {
+//       return sum(res, 444);
+//     })
+//     .then((res) => {
+//       console.log(res);
+//     });
 // }
 
-// f1().then((res) => console.log(res));
+// f3();
 
-// async function f2() {
-//   return 10;
+// async function f4() {
+//   const res1 = await sum(111, 222);
+//   console.log(res1);
 // }
 
-// f2().then((res) => console.log(res));
+// f4();
+// console.log("全局");
 
-function sum(a, b) {
-  return new Promise((resolve, reject) => {
-    resolve(a + b);
-  }, 1000);
-}
-async function f3() {
-  sum(111, 222)
-    .then((res) => {
-      return sum(res, 333);
-    })
-    .then((res) => {
-      return sum(res, 444);
-    })
-    .then((res) => {
-      console.log(res);
-    });
-}
+// async function f5() {
+//   let res = await sum(111, 222);
+//   res = await sum(res, 333);
+//   res = await sum(res, 444);
+//   console.log(res);
+// }
 
-f3();
+// async function f6() {
+//   try {
+//     let res = await sum(111, 222);
+//     res = await sum(res, 333);
+//     res = await sum(res, 444);
+//     console.log(res);
+//   } catch {
+//     console;
+//   }
+// }
 
-async function f4() {
-  const res1 = await sum(111, 222);
-  console.log(res1);
-}
+// function f8() {
+//   return new Promise((resolve, reject) => {
+//     console.log(1);
+//     console.log(2);
+//     console.log(3);
+//     resolve();
+//   });
+// }
 
-f4();
-console.log("全局");
+// async function f7() {
+//   console.log(1);
+//   await console.log(2);
+//   console.log(3);
+// }
 
-async function f5() {
-  let res = await sum(111, 222);
-  res = await sum(res, 333);
-  res = await sum(res, 444);
-  console.log(res);
-}
+// f7();
+// console.log(4);
 
-async function f6() {
-  try {
-    let res = await sum(111, 222);
-    res = await sum(res, 333);
-    res = await sum(res, 444);
-    console.log(res);
-  } catch {
-    console;
-  }
-}
+// console.log([] == ![]);
 
-async function f7() {
-  console.log(1);
-  console.log(2);
-  console.log(3);
-}
-
-function f8() {
+function f9() {
   return new Promise((resolve, reject) => {
     console.log(1);
     console.log(2);
-    console.log(3);
     resolve();
+  }).then(() => {
+    console.log(3);
   });
 }
 
-f7();
+f9();
 console.log(4);
+
+(async () => {
+  await console.log(111);
+})();
