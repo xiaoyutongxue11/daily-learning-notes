@@ -18,6 +18,15 @@ json 文件属性名必须要用双引号，属性值可以是对象、数组、
 }
 ```
 
+#### scripts 属性
+
+scripts 属性是一个对象，可以配置项目的一些命令。
+属性名：我们希望执行的名字。
+属性值：指令。
+定义之后，可以直接通过 npm 来执行这些命令。
+常用的属性名有：test、start，使用这两个属性名，可以直接使用`npm + test\start`执行指令。
+如果是自定义的属性名，需要使用`npm run 属性名`执行指令。
+
 ### npm 命令
 
 执行`npm init`命令（有提问）可以创建一个 package.json 文件。
@@ -43,3 +52,22 @@ console.log(_);
 全局安装之后，可以直接在命令行中使用。
 `npm uninstall 包名 -g`全局卸载。
 `npm uninstall`之后依赖也会删除。
+
+### npm 镜像
+
+npm 仓库的服务器位于国外，有时候并不是那么好用，为了解决这个问题，可以在 npm 中配置镜像服务器。
+
+#### 镜像的配置
+
+方式：
+
+1. 在系统中安装 cnpm。
+2. 彻底修改 npm 仓库地址。
+
+## Yarn
+
+yarn3 执行 node 命令：yarn node xxx.js
+corepack 插件：yarn add corepack -g
+
+## pnpm
+
