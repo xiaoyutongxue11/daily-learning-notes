@@ -1,0 +1,15 @@
+{
+  "name": "12_express",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "scripts": {
+    "start": "npx nodemon index.js"
+  }
+}
