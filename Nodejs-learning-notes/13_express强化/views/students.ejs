@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ejs模板</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        font-size: 20px;
+        border: 1px solid black;
+        padding: 10px;
+        text-align: center;
+      }
+      caption {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>students</h1>
+    <%# name %> <br />
+    <%# name %> <br />
+    <%# age %> <br />
+    <%# helloStr %> <br />
+    <%# helloStr %> <br />
+    <form action="/setName" method="post">
+      <input type="text" name="name" placeholder="请输入名字" />
+      <input type="submit" value="提交" />
+    </form>
+    <hr />
+    <% for(const stu of students){ %> <%=stu.name %> - <%=stu.age %> <br />
+    <% } %>
+    <hr />
+    <table>
+      <caption>
+        学生列表
+      </caption>
+      <tr>
+        <th>ID</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>性别</th>
+      </tr>
+      <tbody>
+        <% for(const stu of students){ %>
+        <tr>
+          <td><%=stu.id %></td>
+          <td><%=stu.name %></td>
+          <td><%=stu.age %></td>
+          <td><%=stu.gender %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <hr />
+    <form action="/addStudent" method="post">
+      <div>
+        姓名：
+        <input type="text" name="name" placeholder="请输入名字" />
+      </div>
+      <div>
+        年龄：
+        <input type="number" name="age" max="120" min="0" />
+      </div>
+      <div>
+        性别：
+        <input type="radio" name="gender" value="男" checked />男
+        <input type="radio" name="gender" value="女" />女
+      </div>
+      <input type="submit" value="提交" />
+    </form>
+  </body>
+</html>
