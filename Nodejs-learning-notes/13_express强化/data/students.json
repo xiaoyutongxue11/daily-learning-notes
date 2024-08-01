@@ -1,7 +1,1 @@
-[
-  { "id": 1, "name": "张三", "age": 18, "gender": "男" },
-  { "id": 2, "name": "李四", "age": 20, "gender": "男" },
-  { "id": 3, "name": "王五", "age": 22, "gender": "男" },
-  { "id": 4, "name": "tyy", "age": 12, "gender": "女" },
-  { "id": 5, "name": "xcb", "age": 13, "gender": "男" }
-]
+[{"id":1,"name":"shs","age":"24","gender":"男"},{"id":2,"name":"tyy","age":"18","gender":"女"}]

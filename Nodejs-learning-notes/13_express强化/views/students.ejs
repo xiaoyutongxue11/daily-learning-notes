@@ -34,9 +34,11 @@
       <input type="submit" value="提交" />
     </form>
     <hr />
+
     <% for(const stu of students){ %> <%=stu.name %> - <%=stu.age %> <br />
     <% } %>
     <hr />
+    <% if(students && students.length > 0){ %>
     <table>
       <caption>
         学生列表
@@ -46,6 +48,7 @@
         <th>姓名</th>
         <th>年龄</th>
         <th>性别</th>
+        <th colspan="2">操作</th>
       </tr>
       <tbody>
         <% for(const stu of students){ %>
@@ -54,10 +57,21 @@
           <td><%=stu.name %></td>
           <td><%=stu.age %></td>
           <td><%=stu.gender %></td>
+          <td colspan="2">
+            <a
+              onclick="return confirm('确认删除吗？')"
+              href="/delStudent?id=<%=stu.id %>"
+              >删除</a
+            >
+            <a href="/toEdit?id=<%=stu.id %>">修改</a>
+          </td>
         </tr>
         <% } %>
       </tbody>
     </table>
+    <%} else{ %>
+    <p>暂无学生</p>
+    <% } %>
     <hr />
     <form action="/addStudent" method="post">
       <div>
