@@ -5,7 +5,11 @@ const path = require("path");
 
 let STUDENTS = require("../data/students.json");
 router.get("/students", (req, res) => {
-  res.render("students", { students: STUDENTS });
+  if (req.cookies.username) {
+    res.render("students", { students: STUDENTS });
+  } else {
+    res.redirect("/");
+  }
 });
 
 router.get("/delStudent", (req, res, next) => {
