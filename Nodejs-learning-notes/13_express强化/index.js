@@ -25,7 +25,11 @@ app.get("/", (req, res) => {
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
   if (username === "admin" && password === "123456") {
-    res.cookie("username", username);
+    // 默认情况下，cookie的有效期是一次会话，一次会话就是浏览器从开到关的过程
+    // cookie的有效期可以设置:expires指定具体时间，maxAge(ms)指定有效期
+    // cookie一旦发送给浏览器就不能修改
+    // 我们可以发送新的同名cookie（可以重新设置有效期）来替换旧的
+    res.cookie("username", username, { maxAge: 1000 * 60 * 60 * 24 * 30 });
     res.redirect("/students");
   } else res.redirect("/");
 });
