@@ -34,7 +34,9 @@
       <input type="submit" value="提交" />
     </form>
     <hr />
-
+    <h1>当前用户：<% username %></h1>
+    <a href="/logout">登出</a>
+    <hr />
     <% for(const stu of students){ %> <%=stu.name %> - <%=stu.age %> <br />
     <% } %>
     <hr />

@@ -4,16 +4,23 @@ const fs = require("fs/promises");
 const path = require("path");
 
 let STUDENTS = require("../data/students.json");
-router.get("/students", (req, res) => {
-  if (req.cookies.username) {
-    res.render("students", { students: STUDENTS });
+
+router.use((req, res, next) => {
+  if (req.session.username) {
+    next();
   } else {
     res.redirect("/");
   }
 });
 
+router.get("/students", (req, res) => {
+  res.render("students", {
+    students: STUDENTS,
+    username: req.session.username,
+  });
+});
+
 router.get("/delStudent", (req, res, next) => {
-  console.log(req.query.id);
   let id = +req.query.id;
   STUDENTS = STUDENTS.filter((item) => item.id !== id);
   next();
@@ -21,7 +28,6 @@ router.get("/delStudent", (req, res, next) => {
 
 router.get("/toEdit", (req, res) => {
   const editStu = STUDENTS.find((item) => item.id === +req.query.id);
-  console.log(editStu);
   res.render("editStudent", { stu: editStu });
 });
 
