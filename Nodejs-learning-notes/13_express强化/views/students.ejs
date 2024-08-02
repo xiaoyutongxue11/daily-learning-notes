@@ -76,6 +76,7 @@
     <% } %>
     <hr />
     <form action="/addStudent" method="post">
+      <input type="text" name="csrf" value="<%=csrfToken %>" />
       <div>
         姓名：
         <input type="text" name="name" placeholder="请输入名字" />

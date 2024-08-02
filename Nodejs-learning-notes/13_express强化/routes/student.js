@@ -2,10 +2,17 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs/promises");
 const path = require("path");
+const uuid = require("uuid").v4;
 
 let STUDENTS = require("../data/students.json");
 
 router.use((req, res, next) => {
+  const referer = req.get("Referer");
+  if (!referer || !referer.startsWith("http://localhost:5003")) {
+    res.status(403);
+    res.send("您没有权限访问");
+    return;
+  }
   if (req.session.username) {
     next();
   } else {
@@ -14,9 +21,14 @@ router.use((req, res, next) => {
 });
 
 router.get("/students", (req, res) => {
-  res.render("students", {
-    students: STUDENTS,
-    username: req.session.username,
+  const token = uuid();
+  req.session.csrfToken = token;
+  req.session.save(() => {
+    res.render("students", {
+      students: STUDENTS,
+      username: req.session.username,
+      csrfToken: token,
+    });
   });
 });
 
@@ -40,16 +52,25 @@ router.post("/editStudent", (req, res, next) => {
 });
 
 router.post("/addStudent", (req, res, next) => {
-  const { name, age, gender } = req.body;
-  const id = STUDENTS.at(-1) ? STUDENTS.at(-1).id + 1 : 1; // 不用length的原因：length变化太大
-  const newStu = {
-    id,
-    name,
-    age: +age,
-    gender,
-  };
-  STUDENTS.push(newStu);
-  next();
+  const csrf = req.body.csrf;
+  const token = req.session.csrfToken;
+  req.session.csrfToken = null;
+
+  if (csrf === token) {
+    const { name, age, gender } = req.body;
+    const id = STUDENTS.at(-1) ? STUDENTS.at(-1).id + 1 : 1; // 不用length的原因：length变化太大
+    const newStu = {
+      id,
+      name,
+      age: +age,
+      gender,
+    };
+    STUDENTS.push(newStu);
+
+    req.session.save(() => {
+      next();
+    });
+  } else res.status(403).send("token 错误");
 });
 
 router.use((req, res) => {

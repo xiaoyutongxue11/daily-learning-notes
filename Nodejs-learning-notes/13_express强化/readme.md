@@ -167,16 +167,40 @@ cookie 保存在客户端，容易被篡改。
 ## session
 
 每一个 session 对象都有一个 id，id 是唯一的，id 是服务器端设置的，客户端保存。
+
 id 会通过 cookie 的形式发给客户端。
+
 客户端每次访问只需要将存储有 id 的 cookie 发给服务器就可以获取到他在服务器中存储的数据。
+
 安装：`npm install express-session`
+
 客户端使用 session，始终是操作 req.session。
+
 session 默认有效期是一次会话。
+
 使用 session 时尽量使用 `node .\index.js` 启动服务，否则 session 会失效。
+
 使用 nodemon，服务器容易重启，服务器一重启，session 就会清空。
+
 服务器重启对于后端来说可能是一个很常见的事情，这会带来不好的用户体验。
+
 我们使用 session 时，会对数据进行持久化。一种是写到文件中，一种是写到数据库中。
+
 如果将 session 写到文件中，需要引入中间件（session-file-store）中。
+
 安转引入这个中间件之后，我们可以看到文件目录多了一个文件夹 sessions，这时重启服务器，再次登录，可以发现 sessions 里面有一个 json 文件，里面保存了 session 信息。
+
 这也会带来一个问题，每次服务器重启，就会多一个 json 文件，导致文件数量过多，影响性能。
+
 而且这是明文保存的，不安全。
+
+防止 csrf 攻击：
+
+1. 使用验证
+2. 尽量使用 post 请求配合 token
+3. 使用 referer 验证
+
+token（令牌）：
+可以在创建表单时随机生成一个令牌，然后将令牌存储在 session 中，并通过模板发送给用户。
+用户提交表单时，必须将 token 发回，才可以进行后续操作。
+可以使用 uuid 来生成 token。
