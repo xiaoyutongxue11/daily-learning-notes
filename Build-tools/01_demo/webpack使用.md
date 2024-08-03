@@ -145,3 +145,9 @@ document.body.onclick = function () {
   alert("点击了页面");
 };
 ```
+
+## plugin
+
+html-webpack-plugin：将打包后的文件插入到 html 中。
+插件不会对代码进行编译，loader 会对代码进行编译。
+插件是辅助我们开发用的工具。
