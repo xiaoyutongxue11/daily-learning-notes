@@ -151,3 +151,37 @@ document.body.onclick = function () {
 html-webpack-plugin：将打包后的文件插入到 html 中。
 插件不会对代码进行编译，loader 会对代码进行编译。
 插件是辅助我们开发用的工具。
+
+## 自动构建命令
+
+在原来的命令上加`--watch`。
+
+```js
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch"
+  },
+```
+
+到了真实的开发环境，我们希望项目运行在服务器上，测试的时候在服务器，上线了也在服务器会统一一些。
+有一个插件，可以帮我们部署到临时服务器上。
+安装：
+
+```js
+npm install -D webpack-dev-server
+```
+
+执行：`npx webpack serve --open`，将打包后的文件放在服务器上，并打开浏览器。
+不会生成 dist 文件夹，在实际开发中，开发完成后要自己手动打包一遍：npm run build
+
+## 优化打包
+
+实际上，我们将 mode 设置为 development 而不是 production。
+
+我们在浏览器上查看源代码，只能看到一个 main.js 文件，不方便调试。
+
+我们查看源代码时能看到自己写的代码，但是又希望浏览器运行的代码和打包后的代码一致。
+
+我们可以使用 devtool 属性，设置打包后的代码和源代码的映射关系。
+
+在 webpack.config.js 中添加` devtool: "inline-source-map",`运行后可以在浏览器中查看源代码。
