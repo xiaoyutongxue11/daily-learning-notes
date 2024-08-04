@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@vitejs/plugin-legacy": "^5.4.1",
+    "terser": "^5.31.3",
     "vite": "^5.3.5"
   },
   "scripts": {

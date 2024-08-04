@@ -41,3 +41,23 @@ ES Module 的运行必须要以 url 运行，也就是必须运行在服务器�
 `vite build` 打包代码。
 `vite preview` 预览打包后的代码。
 `create vite` 快速创建框架项目。
+
+vite 开箱即用，当写了一些样式代码时，不需要配置 css-loader 等东西。
+
+vite 的配置文件为 vite.config.js，使用 es modules 规范编写。
+
+兼容浏览器的插件：`@vitejs/plugin-vue`。
+配置：
+
+```js
+import { defineConfig } from "vite";
+import legacy from "@vitejs/plugin-legacy";
+
+export default defineConfig({
+  plugins: [
+    legacy({
+      targets: ["defaults"],
+    }),
+  ],
+});
+```

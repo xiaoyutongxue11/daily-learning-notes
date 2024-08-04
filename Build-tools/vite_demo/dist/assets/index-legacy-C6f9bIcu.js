@@ -1,0 +1,1 @@
+System.register([],(function(e,t){"use strict";return{execute:function(){const e={sayHello(){document.body.insertAdjacentHTML("beforeend","<h3>你好。vite</h3>")}};document.body.insertAdjacentHTML("beforeend","<h1>你好。vite</h1>"),e.sayHello(),document.body.onclick=()=>{alert("click")}}}}));
