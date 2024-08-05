@@ -17,6 +17,25 @@ app.use((req, res, next) => {
   next();
 });
 
+app.post("/login", (req, res, next) => {
+  const { username, password } = req.body;
+  if (username === "admin" && password === "123456") {
+    res.send({
+      status: "ok",
+      data: {
+        id: "12345",
+        username: "admin",
+        nickname: "管理员",
+      },
+    });
+  } else {
+    res.status(403).send({
+      status: "error",
+      data: "用户名或密码错误",
+    });
+  }
+});
+
 app.get("/students", (req, res) => {
   console.log("get students");
   res.send({

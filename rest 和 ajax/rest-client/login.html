@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root">
+      <h1>请先登录</h1>
+      <h2 id="errMsg"></h2>
+      <form>
+        <div>
+          <input type="text" id="username" />
+        </div>
+        <div>
+          <input type="password" id="password" />
+        </div>
+        <div>
+          <button type="button" id="loginBtn">登录</button>
+        </div>
+      </form>
+    </div>
+    <script>
+      const loginBtn = document.getElementById("loginBtn");
+      const root = document.getElementById("root");
+      loginBtn.onclick = () => {
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+        fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+        })
+          .then((res) => {
+            if (res.status === 200) return res.json();
+            else throw new Error("登录失败");
+          })
+          .then((res) => {
+            root.innerHTML = `<h1>欢迎${res.data.nickname}回来</h1>`;
+          })
+          .catch((err) => {
+            console.log(err);
+            const errMsg = document.getElementById("errMsg");
+            errMsg.innerText = err.message;
+          });
+      };
+    </script>
+  </body>
+</html>
