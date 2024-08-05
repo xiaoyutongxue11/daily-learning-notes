@@ -10,10 +10,11 @@ const STU_ARR = [
 
 app.use(express.urlencoded({ extended: true })); // 解析请求体
 app.use(express.json()); // 解析json请求体
-app.use((req, res) => {
+app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-type");
+  next();
 });
 
 app.get("/students", (req, res) => {

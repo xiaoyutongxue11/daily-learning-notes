@@ -58,9 +58,37 @@ app.get("/students", (req, res) => {
 服务器的所有请求都要设置请求头，可以添加一个中间件来处理跨域这件事情。
 
 ```js
-app.use((req, res) => {
+app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE"); // 设置允许的请求方式
   res.setHeader("Access-Control-Allow-Headers", "Content-type"); // 设置允许传递的请求头
+  next();
 });
+```
+
+### 读取响应信息
+
+AJAX 是异步的。发送请求后，服务器返回响应信息，通过 xhr.onload 事件监听响应信息。
+
+渲染数据：
+
+```js
+xhr.responseType = "json"; // 将响应数据类型设为json格式后，会自动帮我们解析json格式的数据，加了这行代码就可以不使用JSON.parse()来解析response了
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    // 响应状态码，不是数据
+    const res = xhr.response;
+    if (res.status === "ok") {
+      // 数据状态
+      const ul = document.createElement("ul");
+      document.body.appendChild(ul);
+      for (let stu of res.data) {
+        ul.insertAdjacentHTML(
+          "beforeend",
+          `<li>${stu.id} - ${stu.name} - ${stu.age} - ${stu.gender} - ${stu.address}</li>`
+        );
+      }
+    }
+  }
+};
 ```

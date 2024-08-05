@@ -15,6 +15,24 @@
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "http://localhost:3000/students");
         xhr.send();
+        xhr.responseType = "json";
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            // 响应状态码，不是数据
+            const res = xhr.response;
+            if (res.status === "ok") {
+              // 数据状态
+              const ul = document.createElement("ul");
+              document.body.appendChild(ul);
+              for (let stu of res.data) {
+                ul.insertAdjacentHTML(
+                  "beforeend",
+                  `<li>${stu.id} - ${stu.name} - ${stu.age} - ${stu.gender} - ${stu.address}</li>`
+                );
+              }
+            }
+          }
+        };
       };
     </script>
   </body>
