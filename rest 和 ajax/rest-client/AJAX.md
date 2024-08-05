@@ -117,3 +117,19 @@ fetch("http://localhost:3000/students")
     console.log(err);
   });
 ```
+
+使用 fetch 请求时，服务器不会自动生成 cookie，session 是基于 cookie 的，也不能使用。
+
+### 本地存储
+
+在登录成功后，我们需要保存用户的登录状态。我们现在写的登录 demo 是前后端分离的。客户端和服务器是跨域的，不能使用 cookie。我们可以使用本地存储。
+
+本地存储是客户端（浏览器自身的存储空间）。
+
+- sessionStorage：会话存储空间，有效范围：当前页面，关闭浏览器后数据消失
+- localStorage：本地存储空间，关闭浏览器后数据不会消失
+
+存数据：`setItem(name,value)`
+取数据：`getItem(name)`
+删数据：`removeItem(name)`
+清空数据：`clear()`
