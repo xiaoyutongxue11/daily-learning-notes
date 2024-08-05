@@ -4,35 +4,112 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>网页</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 50%;
+      }
+      th,
+      td {
+        font-size: 20px;
+        border: 1px solid #000;
+        text-align: center;
+      }
+      caption {
+        font-size: 24px;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <h1>网页</h1>
     <button id="btn">点我加载数据</button>
+    <button id="btn1">1点我加载数据</button>
+    <button id="btn2">2点我加载数据</button>
     <script>
       const btn = document.getElementById("btn");
+      const btn1 = document.getElementById("btn1");
+      const btn2 = document.getElementById("btn2");
+      btn1.onclick = () => {
+        fetch("http://localhost:3000/students", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: "刘七",
+            age: 56,
+            gender: "女",
+            address: "成都",
+          }),
+        });
+      };
+      btn2.onclick = () => {
+        fetch("http://localhost:3000/students/9")
+          .then((res) => {
+            if (res.status === 200) {
+              return res.json();
+            } else {
+              throw new Error("加载失败");
+            }
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+      const root = document.body;
       btn.onclick = () => {
-        alert("哈哈");
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://localhost:3000/students");
-        xhr.send();
-        xhr.responseType = "json";
-        xhr.onload = function () {
-          if (xhr.status === 200) {
-            // 响应状态码，不是数据
-            const res = xhr.response;
+        fetch("http://localhost:3000/students")
+          .then((res) => {
+            if (res.status === 200) {
+              // res.json()可以用来读取json格式的数据，值是promise
+              return res.json();
+            } else {
+              throw new Error("加载失败");
+            }
+          })
+          .then((res) => {
             if (res.status === "ok") {
-              // 数据状态
-              const ul = document.createElement("ul");
-              document.body.appendChild(ul);
+              const table = document.createElement("table");
+              root.appendChild(table);
+              table.insertAdjacentHTML(
+                "beforeend",
+                `<caption>学生信息列表</caption>`
+              );
+              table.insertAdjacentHTML(
+                "beforeend",
+                `<thead>
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>age</th>
+                        <th>gender</th>
+                        <th>address</th>
+                    </tr>
+                </thead>`
+              );
+              const tbody = document.createElement("tbody");
+              table.appendChild(tbody);
               for (let stu of res.data) {
-                ul.insertAdjacentHTML(
+                tbody.insertAdjacentHTML(
                   "beforeend",
-                  `<li>${stu.id} - ${stu.name} - ${stu.age} - ${stu.gender} - ${stu.address}</li>`
+                  `<tr>
+                    <td>${stu.id}</td>
+                    <td>${stu.name}</td>
+                    <td>${stu.age}</td>
+                    <td>${stu.gender}</td>
+                    <td>${stu.address}</td>
+                </tr>`
                 );
               }
             }
-          }
-        };
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       };
     </script>
   </body>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>网页</title>
+  </head>
+  <body>
+    <h1>网页</h1>
+    <button id="btn">点我加载数据</button>
+    <script>
+      const btn = document.getElementById("btn");
+      btn.onclick = () => {
+        alert("哈哈");
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:3000/students");
+        xhr.send();
+        xhr.responseType = "json";
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            // 响应状态码，不是数据
+            const res = xhr.response;
+            if (res.status === "ok") {
+              // 数据状态
+              const ul = document.createElement("ul");
+              document.body.appendChild(ul);
+              for (let stu of res.data) {
+                ul.insertAdjacentHTML(
+                  "beforeend",
+                  `<li>${stu.id} - ${stu.name} - ${stu.age} - ${stu.gender} - ${stu.address}</li>`
+                );
+              }
+            }
+          }
+        };
+      };
+    </script>
+  </body>
+</html>

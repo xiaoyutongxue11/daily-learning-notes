@@ -92,3 +92,28 @@ xhr.onload = function () {
   }
 };
 ```
+
+## fetch
+
+fetch 是 xhr 的升级版，采用的是 Promise API。
+fetch 是原生 js 就支持的一种 ajax 请求方式。
+
+```js
+fetch("http://localhost:3000/students")
+  .then((res) => {
+    if (res.status === 200) {
+      // res.json()可以用来读取json格式的数据，值是promise
+      return res.json();
+    } else {
+      throw new Error("加载失败");
+    }
+  })
+  .then((res) => {
+    if (res.status === "ok") {
+      console.log(res.data);
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+```
