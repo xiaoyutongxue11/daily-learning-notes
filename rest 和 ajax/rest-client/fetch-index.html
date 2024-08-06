@@ -26,10 +26,15 @@
     <button id="btn">点我加载数据</button>
     <button id="btn1">1点我加载数据</button>
     <button id="btn2">2点我加载数据</button>
+    <button id="btn3">3点我加载数据</button>
+    <button id="btn4">4取消3发的请求</button>
+    <button id="btn5">5点我加载数据</button>
     <script>
       const btn = document.getElementById("btn");
       const btn1 = document.getElementById("btn1");
       const btn2 = document.getElementById("btn2");
+      const btn3 = document.getElementById("btn3");
+      const btn4 = document.getElementById("btn4");
       btn1.onclick = () => {
         fetch("http://localhost:3000/students", {
           method: "POST",
@@ -60,6 +65,35 @@
             console.log(err);
           });
       };
+
+      let controller;
+      btn3.onclick = () => {
+        controller = new AbortController();
+        fetch("http://localhost:3000/test", {
+          signal: controller.signal,
+        })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+
+      btn4.onclick = () => {
+        controller && controller.abort();
+      };
+
+      btn5.onclick = async () => {
+        try {
+          const res = await fetch("http://localhost:3000/students/6");
+          const data = await res.json();
+          console.log(data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
       const root = document.body;
       const token = localStorage.getItem("token");
       btn.onclick = () => {

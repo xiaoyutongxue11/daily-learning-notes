@@ -18,6 +18,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/test", () => {});
+
 app.post("/login", (req, res, next) => {
   const { username, password } = req.body;
   if (username === "admin" && password === "123456") {
