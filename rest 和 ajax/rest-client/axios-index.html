@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <button id="btn1">btn1加载数据</button>
+    <button id="btn2">btn2加载数据</button>
+    <button id="btn3">btn3加载数据</button>
+    <script>
+      const btn1 = document.getElementById("btn1");
+      const btn2 = document.getElementById("btn2");
+      const btn3 = document.getElementById("btn3");
+      btn1.onclick = () => {
+        axios("http://localhost:3000/students/4")
+          .then((res) => {
+            console.log(res);
+          })
+          .catch(() => {
+            console.log(err);
+          });
+      };
+
+      btn2.onclick = () => {
+        axios({
+          method: "post",
+          url: "http://localhost:3000/students",
+          data: {
+            name: "六七",
+            age: 11,
+            gender: "男",
+            address: "河北",
+          },
+        })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch(() => {
+            console.log(err);
+          });
+      };
+
+      btn3.onclick = () => {
+        axios({
+          method: "post",
+          baseUrl: "http://localhost:3000",
+          url: "/students",
+          headers: {
+            "Content-Type": "application/json", // 会根据data类型自动识别配置
+          },
+          data: {
+            name: "六七",
+            age: 11,
+            gender: "男",
+            address: "河北",
+          },
+          params: {
+            id: "1", // 指定查询字符串
+          },
+          timeout: 1000, // 超时时间，规定时间内没有响应就会终止请求
+          // 用来处理请求数据data，请求发送时多个函数会按照顺序执行
+          // 函数执行时，会接收两个参数data、headers
+          transformRequest: [
+            function (data, headers) {
+              data.name = "猪八戒";
+              headers["Content-Type"] = "application/json";
+              return data;
+            },
+            function (data, headers) {
+              return JSON.stringify(data);
+            },
+          ],
+        })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+    </script>
+  </body>
+</html>

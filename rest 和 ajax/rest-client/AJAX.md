@@ -184,3 +184,34 @@ try {
 3. 客户端收到数据后，将 token 保存在本地。
 4. 客户端每次访问服务器时，将 token 发送给服务器。
 5. 服务器收到客户端发来的 token 进行解密，如果 token 有效，则允许访问，否则拒绝访问。
+
+## axios
+
+axios 是一个基于 promise 的 HTTP 库，可以用于浏览器和 node.js。(对 xhr 的再次封装)
+
+axios 和 fetch 的区别：
+
+- axios 请求时携带的数据为 data 而 fetch 请求时携带的数据为 body。
+- axios 不用添加 res.json 等语句来解析响应数据。
+- axios 的数据在第一次 then 中就可以拿到。
+
+```js
+btn2.onclick = () => {
+  axios({
+    method: "post",
+    url: "http://localhost:3000/students",
+    data: {
+      name: "六七",
+      age: 11,
+      gender: "男",
+      address: "河北",
+    },
+  })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch(() => {
+      console.log(err);
+    });
+};
+```
