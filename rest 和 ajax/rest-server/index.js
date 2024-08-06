@@ -1,4 +1,5 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 
@@ -13,19 +14,24 @@ app.use(express.json()); // 解析json请求体
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-type");
+  res.setHeader("Access-Control-Allow-Headers", "Content-type,authorization");
   next();
 });
 
 app.post("/login", (req, res, next) => {
   const { username, password } = req.body;
   if (username === "admin" && password === "123456") {
+    const data = {
+      id: "12345",
+      username: "admin",
+      nickname: "管理员",
+    };
+    const token = jwt.sign(data, "fdhsjgds", { expiresIn: "1h" });
     res.send({
       status: "ok",
       data: {
-        id: "12345",
-        username: "admin",
-        nickname: "管理员",
+        token,
+        ...data,
       },
     });
   } else {
@@ -37,11 +43,21 @@ app.post("/login", (req, res, next) => {
 });
 
 app.get("/students", (req, res) => {
-  console.log("get students");
-  res.send({
-    status: "ok",
-    data: STU_ARR,
-  });
+  try {
+    const token = req.get("authorization").split(" ")[1];
+    const decodeToken = jwt.verify(token, "fdhsjgds");
+    if (decodeToken) {
+      res.send({
+        status: "ok",
+        data: STU_ARR,
+      });
+    } else throw new Error("token无效");
+  } catch {
+    res.status(403).send({
+      status: "error",
+      data: "token无效",
+    });
+  }
 });
 
 app.post("/students", (req, res) => {

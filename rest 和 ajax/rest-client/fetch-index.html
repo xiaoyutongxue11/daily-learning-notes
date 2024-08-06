@@ -61,8 +61,13 @@
           });
       };
       const root = document.body;
+      const token = localStorage.getItem("token");
       btn.onclick = () => {
-        fetch("http://localhost:3000/students")
+        fetch("http://localhost:3000/students", {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        })
           .then((res) => {
             if (res.status === 200) {
               // res.json()可以用来读取json格式的数据，值是promise

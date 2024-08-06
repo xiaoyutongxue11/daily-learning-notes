@@ -28,10 +28,9 @@
     <script>
       const loginBtn = document.getElementById("loginBtn");
       const root = document.getElementById("root");
-      if (localStorage.getItem("user")) {
+      if (localStorage.getItem("token")) {
         const user = JSON.parse(localStorage.getItem("user"));
         root.innerHTML = `<h1>欢迎${user.nickname}回来</h1>`;
-        console.log(user, "user");
       } else {
         loginBtn.onclick = () => {
           const username = document.getElementById("username").value.trim();
@@ -52,7 +51,9 @@
             })
             .then((res) => {
               root.innerHTML = `<h1>欢迎${res.data.nickname}回来</h1>`;
-              localStorage.setItem("user", JSON.stringify(res.data));
+              const { token, ...user } = res.data;
+              localStorage.setItem("user", JSON.stringify(user));
+              localStorage.setItem("token", token);
             })
             .catch((err) => {
               console.log(err);

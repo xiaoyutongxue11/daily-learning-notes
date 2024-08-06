@@ -133,3 +133,54 @@ fetch("http://localhost:3000/students")
 取数据：`getItem(name)`
 删数据：`removeItem(name)`
 清空数据：`clear()`
+
+## token
+
+使用本地存储存在问题：
+
+1. 数据不安全。
+2. 服务器不知道客户端是否登录。
+
+解决问题：
+
+rest 风格的服务器是无状态的服务器，不能在服务器中存储用户的数据（不要使用 session）。
+
+可以将用户信息发送给客户端保存。客户端每次访问服务器时，直接将用户信息发回给服务器。服务器就能根据用户信息来识别用户身份。
+
+如果将数据直接发送给客户端同样会有数据安全问题，所以服务器需要对数据进行加密，加密后再将数据发送给客户端保存，这样可避免数据的泄漏。
+
+在 node 中可以直接使用 jsonwebtoken（通过对 json 加密后生成一个 web 中使用的令牌） 包来对数据进行加密。
+
+加密和解密过程：
+
+```js
+const jwt = require("jsonwebtoken");
+
+const obj = {
+  name: "sew",
+  age: 12,
+  sex: "男",
+};
+// 加密
+const token = jwt.sign(obj, "fdhsjhfdjsh", {
+  expiresIn: "1h", // 如果过期，将无法解密
+});
+
+console.log(token);
+
+// 解密
+try {
+  const data = jwt.verify(token, "fdhsjhfdjsh");
+  console.log(data);
+} catch {
+  console.log("token无效");
+}
+```
+
+使用流程：
+
+1. 客户端首次登录时，向服务器发送登录信息（用户名、密码等）
+2. 服务器收到登录请求，检验密码正确后，向客户端发送用户的基本信息（用户名、昵称等）和一个加密 token。
+3. 客户端收到数据后，将 token 保存在本地。
+4. 客户端每次访问服务器时，将 token 发送给服务器。
+5. 服务器收到客户端发来的 token 进行解密，如果 token 有效，则允许访问，否则拒绝访问。
