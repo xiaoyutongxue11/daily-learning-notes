@@ -195,6 +195,8 @@ axios 和 fetch 的区别：
 - axios 不用添加 res.json 等语句来解析响应数据。
 - axios 的数据在第一次 then 中就可以拿到。
 
+### axios 使用
+
 ```js
 btn2.onclick = () => {
   axios({
@@ -215,3 +217,38 @@ btn2.onclick = () => {
     });
 };
 ```
+
+### axios 实例和默认配置
+
+axios 的实例相当于 axios 的一个副本，他的功能和 axios 一样。
+
+axios 的默认配置在实例中会生效。
+
+可以在实例中修改 axios 的默认配置。
+
+```js
+// axios默认配置
+axios.defaults.baseUrl = "http://localhost:3000";
+axios.defaults.headers.common["authorization"] = "Bearer tokenxxxx";
+
+// 创建axios实例
+const instance = axios.create({
+  baseUrl: "http://localhost:4000",
+});
+instance.defaults.headers.common["authorization"] = "Bearer tokenxxxx";
+
+// 使用axios实例
+instance({
+  method: "post",
+  url: "/students",
+  data: {},
+});
+```
+
+### axios 拦截器
+
+axios 的拦截器可以拦截请求和响应，在请求发送前或响应被 then 或 catch 处理前拦截它们。
+
+axios 的拦截器分为请求拦截器和响应拦截器。
+
+拦截器仅对当前实例有用。

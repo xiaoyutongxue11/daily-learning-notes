@@ -14,6 +14,18 @@
       const btn1 = document.getElementById("btn1");
       const btn2 = document.getElementById("btn2");
       const btn3 = document.getElementById("btn3");
+
+      axios.defaults.baseUrl = "http://localhost:3000";
+      axios.defaults.headers.common["authorization"] = "Bearer token";
+      const instance = axios.create({
+        baseUrl: "http://localhost:4000",
+      });
+      instance({
+        method: "post",
+        url: "/students",
+        data: {},
+      });
+      
       btn1.onclick = () => {
         axios("http://localhost:3000/students/4")
           .then((res) => {
