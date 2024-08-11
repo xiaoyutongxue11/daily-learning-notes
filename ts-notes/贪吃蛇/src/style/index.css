@@ -1,0 +1,48 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+#main {
+  width: 360px;
+  height: 420px;
+  border: 10px solid #4c4b4b;
+  border-radius: 10px;
+  background-color: aquamarine;
+  margin: 100px auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+}
+#main #stage {
+  width: 304px;
+  height: 304px;
+  border: 2px solid #4c4b4b;
+}
+#main #stage #snake {
+  width: 10px;
+  height: 10px;
+  border: 1px solid aquamarine;
+  background-color: black;
+}
+#main #stage #food {
+  width: 10px;
+  height: 10px;
+  border: 1px solid aquamarine;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+#main #stage #food > div {
+  width: 3px;
+  height: 3px;
+  background-color: black;
+}
+#main #score {
+  width: 300px;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  justify-content: space-between;
+}
