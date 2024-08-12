@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: black;
+}
+
+#layer1 {
+  width: 1px;
+  height: 1px;
+  position: fixed;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  box-shadow: 26vw 138vh #fff,48vw 14vh #fff,21vw 79vh #fff,94vw 72vh #fff,42vw 29vh #fff,31vw 85vh #fff,48vw 49vh #fff,19vw 44vh #fff,48vw 89vh #fff,90vw 45vh #fff,9vw 90vh #fff,39vw 61vh #fff,32vw 24vh #fff,1vw 16vh #fff,22vw 21vh #fff,29vw 89vh #fff,41vw 97vh #fff,2vw 74vh #fff,25vw 85vh #fff,91vw 4vh #fff,77vw 5vh #fff,84vw 90vh #fff,99vw 2vh #fff,45vw 21vh #fff,93vw 31vh #fff,36vw 80vh #fff,64vw 100vh #fff,100vw 78vh #fff,8vw 2vh #fff,56vw 33vh #fff,98vw 85vh #fff,1vw 49vh #fff,73vw 21vh #fff,6vw 34vh #fff,51vw 62vh #fff,48vw 60vh #fff,29vw 94vh #fff,59vw 71vh #fff,29vw 28vh #fff,86vw 83vh #fff,68vw 78vh #fff,2vw 82vh #fff,73vw 93vh #fff,83vw 85vh #fff,91vw 97vh #fff,80vw 61vh #fff,85vw 25vh #fff,27vw 10vh #fff,12vw 97vh #fff,85vw 70vh #fff,79vw 96vh #fff,37vw 43vh #fff,10vw 13vh #fff,85vw 38vh #fff,75vw 74vh #fff,53vw 64vh #fff,49vw 45vh #fff,85vw 77vh #fff,76vw 3vh #fff,9vw 40vh #fff,23vw 74vh #fff,54vw 99vh #fff,88vw 54vh #fff,14vw 64vh #fff,97vw 4vh #fff,96vw 46vh #fff,46vw 46vh #fff,14vw 73vh #fff,34vw 41vh #fff,37vw 15vh #fff,70vw 80vh #fff,14vw 38vh #fff,32vw 27vh #fff,2vw 40vh #fff,29vw 72vh #fff,49vw 70vh #fff,3vw 45vh #fff,35vw 23vh #fff,24vw 54vh #fff,61vw 68vh #fff,79vw 36vh #fff,18vw 76vh #fff,22vw 71vh #fff,41vw 62vh #fff,69vw 65vh #fff,65vw 25vh #fff,91vw 97vh #fff,52vw 16vh #fff,88vw 35vh #fff,88vw 65vh #fff,18vw 81vh #fff,35vw 6vh #fff,28vw 29vh #fff,46vw 21vh #fff,58vw 59vh #fff,88vw 45vh #fff,17vw 26vh #fff,66vw 60vh #fff,54vw 55vh #fff,27vw 47vh #fff,97vw 31vh #fff,19vw 54vh #fff,12vw 64vh #fff,84vw 54vh #fff,16vw 3vh #fff,21vw 28vh #fff,71vw 86vh #fff,63vw 29vh #fff,12vw 82vh #fff,43vw 42vh #fff,58vw 73vh #fff,8vw 77vh #fff,3vw 76vh #fff,84vw 13vh #fff,50vw 12vh #fff,75vw 77vh #fff,23vw 22vh #fff,31vw 89vh #fff,47vw 37vh #fff,41vw 86vh #fff,39vw 33vh #fff,13vw 43vh #fff,80vw 32vh #fff,12vw 25vh #fff,7vw 12vh #fff,64vw 8vh #fff,35vw 15vh #fff,91vw 92vh #fff,91vw 93vh #fff,16vw 100vh #fff,99vw 86vh #fff,51vw 76vh #fff,81vw 23vh #fff,4vw 91vh #fff,47vw 49vh #fff,60vw 32vh #fff,45vw 89vh #fff,75vw 68vh #fff,63vw 54vh #fff,99vw 35vh #fff,38vw 33vh #fff,64vw 70vh #fff,16vw 98vh #fff,16vw 37vh #fff,19vw 13vh #fff,47vw 55vh #fff,49vw 27vh #fff,65vw 58vh #fff,52vw 29vh #fff,4vw 85vh #fff;
+  animation: moveUp 250s linear infinite;
+}
+#layer1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100vh;
+  width: inherit;
+  height: inherit;
+  box-shadow: inherit;
+  border-radius: inherit;
+}
+
+#layer2 {
+  width: 2px;
+  height: 2px;
+  position: fixed;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  box-shadow: 172vw 77vh #fff,60vw 95vh #fff,78vw 92vh #fff,73vw 12vh #fff,75vw 89vh #fff,41vw 100vh #fff,96vw 97vh #fff,1vw 30vh #fff,38vw 7vh #fff,29vw 20vh #fff,59vw 47vh #fff,1vw 5vh #fff,57vw 63vh #fff,39vw 31vh #fff,7vw 88vh #fff,72vw 87vh #fff,27vw 70vh #fff,70vw 77vh #fff,52vw 82vh #fff,48vw 93vh #fff,19vw 85vh #fff,37vw 75vh #fff,46vw 71vh #fff,43vw 34vh #fff,67vw 66vh #fff,72vw 28vh #fff,100vw 57vh #fff,80vw 20vh #fff,40vw 97vh #fff,68vw 7vh #fff,64vw 36vh #fff,21vw 69vh #fff,32vw 99vh #fff,47vw 21vh #fff,78vw 19vh #fff,50vw 83vh #fff,74vw 24vh #fff,45vw 18vh #fff,64vw 14vh #fff,96vw 11vh #fff,85vw 5vh #fff,91vw 60vh #fff,60vw 18vh #fff,86vw 76vh #fff,9vw 99vh #fff,60vw 96vh #fff,34vw 19vh #fff,77vw 95vh #fff,54vw 2vh #fff,14vw 83vh #fff,45vw 65vh #fff,23vw 49vh #fff,91vw 84vh #fff,2vw 92vh #fff,84vw 70vh #fff,21vw 51vh #fff,40vw 60vh #fff,11vw 7vh #fff,2vw 92vh #fff,50vw 9vh #fff,55vw 46vh #fff,13vw 20vh #fff,24vw 18vh #fff,49vw 17vh #fff,4vw 26vh #fff,5vw 72vh #fff,20vw 75vh #fff,22vw 67vh #fff,50vw 48vh #fff,68vw 42vh #fff,2vw 61vh #fff,72vw 81vh #fff,11vw 31vh #fff,42vw 16vh #fff,13vw 21vh #fff;
+  animation: moveUp 125s linear infinite;
+}
+#layer2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100vh;
+  width: inherit;
+  height: inherit;
+  box-shadow: inherit;
+  border-radius: inherit;
+}
+
+#layer3 {
+  width: 3px;
+  height: 3px;
+  position: fixed;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  box-shadow: 80vw 175vh #fff,82vw 47vh #fff,19vw 61vh #fff,45vw 64vh #fff,79vw 44vh #fff,80vw 35vh #fff,29vw 6vh #fff,9vw 41vh #fff,62vw 10vh #fff,48vw 25vh #fff,62vw 19vh #fff,87vw 27vh #fff,47vw 79vh #fff,33vw 21vh #fff,91vw 9vh #fff,89vw 69vh #fff,25vw 99vh #fff,50vw 59vh #fff,35vw 5vh #fff,74vw 19vh #fff,53vw 10vh #fff,34vw 98vh #fff,84vw 87vh #fff,23vw 52vh #fff,57vw 67vh #fff,70vw 4vh #fff,83vw 20vh #fff,70vw 20vh #fff,55vw 77vh #fff,21vw 63vh #fff,95vw 50vh #fff,31vw 60vh #fff,69vw 29vh #fff,37vw 14vh #fff,18vw 14vh #fff,21vw 77vh #fff,80vw 84vh #fff;
+  animation: moveUp 62.5s linear infinite;
+}
+#layer3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100vh;
+  width: inherit;
+  height: inherit;
+  box-shadow: inherit;
+  border-radius: inherit;
+}
+
+#layer4 {
+  width: 4px;
+  height: 4px;
+  position: fixed;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  box-shadow: 121vw 138vh #fff,93vw 23vh #fff,25vw 8vh #fff,84vw 64vh #fff,90vw 77vh #fff,78vw 25vh #fff,50vw 9vh #fff,67vw 76vh #fff,5vw 63vh #fff,87vw 35vh #fff,48vw 21vh #fff,40vw 28vh #fff,60vw 33vh #fff,30vw 50vh #fff,100vw 35vh #fff,55vw 86vh #fff,10vw 10vh #fff,39vw 72vh #fff;
+  animation: moveUp 31.25s linear infinite;
+}
+#layer4::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100vh;
+  width: inherit;
+  height: inherit;
+  box-shadow: inherit;
+  border-radius: inherit;
+}
+
+#layer5 {
+  width: 5px;
+  height: 5px;
+  position: fixed;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  box-shadow: 185vw 166vh #fff,13vw 68vh #fff,81vw 34vh #fff,26vw 70vh #fff,6vw 57vh #fff,46vw 43vh #fff,42vw 99vh #fff,82vw 63vh #fff,90vw 93vh #fff;
+  animation: moveUp 15.625s linear infinite;
+}
+#layer5::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100vh;
+  width: inherit;
+  height: inherit;
+  box-shadow: inherit;
+  border-radius: inherit;
+}
+
+@keyframes moveUp {
+  to {
+    transform: translateY(-100vh);
+  }
+}
+
+/*# sourceMappingURL=index1.css.map */
