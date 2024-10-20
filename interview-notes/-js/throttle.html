@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="button">按钮</button>
+  </body>
+  <script>
+    function throttle(func, interval) {
+      let lastTime = 0;
+      return function (...args) {
+        let nowTime = Date.now();
+        if (nowTime - lastTime >= interval) {
+          lastTime = nowTime;
+          func.apply(this, args);
+        }
+      };
+    }
+    const handleClick = throttle(() => {
+      console.log("click");
+    }, 1000);
+    const button = document.getElementById("button");
+    button.addEventListener("click", handleClick);
+  </script>
+</html>
