@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="file" id="fileInput" />
+    <button onclick="uploadFile()">Upload</button>
+  </body>
+  <script>
+    const CHUNK_SIZE = 5 * 1024 * 1024; //每块大小5mb
+    function uploadFile() {
+      const file = document.getElementById("fileInput").files[0];
+      if (!file) {
+        alert("请选择一个文件");
+        return;
+      }
+      const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+      let currentChunk = 0;
+      function uploadChunk() {
+        if (currentChunk >= totalChunks) {
+          console.log("Upload complete");
+          return;
+        }
+        const start = currentChunk * CHUNK_SIZE;
+        const end = Math.min(start + CHUNK_SIZE, file.size);
+        const chunk = file.slice(start, end);
+
+        const formData = new FormData();
+        formData.append("file", chunk);
+        formData.append("chunkNumber", currentChunk + 1);
+        formData.append("totalChunks", totalChunks);
+        fetch("/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (response.ok) {
+              currentChunk++;
+              uploadChunk();
+            } else {
+              console.error("chunk upload failed");
+            }
+          })
+          .catch((error) => {
+            console.error("upload error", error);
+          });
+      }
+      uploadChunk();
+    }
+  </script>
+</html>
