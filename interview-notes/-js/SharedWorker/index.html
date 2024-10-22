@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="increment">increment</button>
+ 
+    <script>
+        const worker = new SharedWorker("./worker.js")
+ 
+        worker.port.onmessage = function(e){
+            console.log(e.data)
+        }
+ 
+        // 主线程向sharedworker发送消息
+        document.getElementById('increment').
+        addEventListener("click",() => {
+            worker.port.postMessage("test");
+        })
+    </script>
+</body>
+</html>
