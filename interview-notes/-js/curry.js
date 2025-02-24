@@ -8,6 +8,7 @@ const curry = function (fn) {
     return fn(...args);
   };
 };
+
  
 const add = function (a, b, c) {
   return a + b + c;

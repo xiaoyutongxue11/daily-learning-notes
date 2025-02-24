@@ -25,16 +25,69 @@ function customPromiseAll(promises) {
 
 Promise.myAll = function (promises) {
   return new Promise((resolve, reject) => {
-    if (!Array.isArray(promises))
-      reject(new TypeError("Argument must be an array"));
-    let results = [];
+    if (!Array.isArray(promises)) return new Error("Argument must be an array");
+    let result = [];
     let completed = 0;
     promises.forEach((p, index) => {
       Promise.resolve(p)
         .then((value) => {
-          results[index] = value;
+          result[index] = value;
           completed++;
-          if (completed === promises.length) resolve(results);
+          if (completed === promises.length) resolve(result);
+        })
+        .catch((value) => {
+          reject(value);
+        });
+    });
+  });
+};
+
+Promise.myAllSettled = function (promises) {
+  return new Promise((resolve, reject) => {
+    if (!Array.isArray(promises)) return new Error("Argument must be an array");
+    let result = [];
+    let completed = 0;
+    promises.forEach((p, index) => {
+      Promise.resolve(p)
+        .then((value) => {
+          result[index] = { status: "fullfilled", value };
+        })
+        .catch((value) => {
+          result[index] = { status: "rejected", value };
+        })
+        .finally(() => {
+          completed++;
+          if (completed === promises.length) resolve(result);
+        });
+    });
+  });
+};
+
+Promise.myAny = function (promises) {
+  return new Promise((resolve, reject) => {
+    if (!Array.isArray(promises)) return new Error("Argument must be an array");
+    let completed = 0;
+    promises.forEach((p) => {
+      Promise.resolve(p)
+        .then((value) => {
+          resolve(value);
+        })
+        .catch(() => {
+          completed++;
+          if (completed === promises.length)
+            reject(new Error("All promises were rejected"));
+        });
+    });
+  });
+};
+
+Promise.myRace = function (promises) {
+  return new Promise((resolve, reject) => {
+    if (!Array.isArray(promises)) return new Error("Argument must be an array");
+    promises.forEach((p) => {
+      Promise.resolve(p)
+        .then((value) => {
+          resolve(value);
         })
         .catch((value) => {
           reject(value);
@@ -44,14 +97,15 @@ Promise.myAll = function (promises) {
 };
 
 // 测试 customPromiseAll
-const promise1 = Promise.resolve(1);
+// const promise1 = Promise.reject(1);
 const promise2 = new Promise((resolve) => setTimeout(resolve, 1000, 2));
 const promise3 = new Promise((resolve) => setTimeout(resolve, 1000, 3));
+// const promise4 = Promise.reject(4);
 
-Promise.myAll([promise1, promise2, promise3])
+Promise.myRace([promise2, promise3])
   .then((results) => {
-    console.log(results); // [1, 2, 3]
+    console.log(results);
   })
   .catch((error) => {
-    console.error(error);
+    console.log(error);
   });
