@@ -10,13 +10,13 @@
   </body>
   <script>
     function debounce(func, wait) {
-      let timeout;
+      let timer;
       return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
           func.apply(this, args);
         }, wait);
-      };
+      }; 
     }
     const search = document.getElementById("search");
     const handleSearch = debounce(() => {
