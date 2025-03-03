@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成试卷</title>
+    <!-- 引入 jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: "SimSun", sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- 生成PDF按钮 -->
+    <button onclick="generatePDF()">生成PDF试卷</button>
+
+    <script>
+        // 动态题目数据
+        const questions = [
+            {
+                type: "single-choice",
+                title: "1. 以下哪个是编程语言？",
+                options: ["A. HTML", "B. CSS", "C. JavaScript", "D. HTTP"],
+                answer: "C"
+            },
+            {
+                type: "multiple-choice",
+                title: "2. 以下哪些是数据库类型？（多选）",
+                options: ["A. MySQL", "B. MongoDB", "C. Redis", "D. Excel"],
+                answer: ["A", "B", "C"]
+            },
+            {
+                type: "programming",
+                title: "3. 编写一个函数，计算两个数的和。",
+                answer: "function add(a, b) { return a + b; }"
+            }
+        ];
+
+        // 生成PDF
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // 设置字体
+            doc.setFont("SimSun");
+
+            // 试卷标题
+            doc.setFontSize(18);
+            doc.text("2025年春季学期期末考试", 105, 20, { align: "center" });
+
+            // 左侧信息栏
+            doc.setFontSize(12);
+            doc.text("学院：计算机学院", 10, 40);
+            doc.text("班级：软件工程22102班", 10, 50);
+            doc.text("姓名：张三", 10, 60);
+
+            // 试题部分
+            let yPos = 80; // 起始Y坐标
+            questions.forEach((question, index) => {
+                doc.setFontSize(12);
+                doc.text(`${index + 1}. ${question.title}`, 20, yPos);
+                yPos += 10;
+
+                if (question.type === "single-choice" || question.type === "multiple-choice") {
+                    question.options.forEach(option => {
+                        doc.text(option, 30, yPos);
+                        yPos += 10;
+                    });
+                } else if (question.type === "programming") {
+                    doc.text(`参考答案：${question.answer}`, 30, yPos);
+                    yPos += 10;
+                }
+
+                yPos += 10; // 题目间距
+            });
+
+            // 保存PDF
+            doc.save("exam_paper.pdf");
+        }
+    </script>
+</body>
+</html>
