@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>纯 JS 实现滚动加载</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+    #loading {
+      display: none;
+      font-size: 16px;
+      color: gray;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <ul id="item-list"></ul>
+  <p id="loading">加载中...</p>
+
+  <script>
+    const itemList = document.getElementById("item-list");
+    const loadingText = document.getElementById("loading");
+    let loading = false; // 避免重复加载
+    let itemCount = 80; // 当前数据数量
+
+    // 初始加载 20 条数据
+    function loadInitialData() {
+      for (let i = 1; i <= 20; i++) {
+        addItem(`Item ${i}`);
+      }
+    }
+
+    // 添加一条数据
+    function addItem(text) {
+      const li = document.createElement("li");
+      li.textContent = text;
+      itemList.appendChild(li);
+    }
+
+    // 模拟异步加载新数据
+    function loadMoreData() {
+      if (loading) return;
+      loading = true;
+      loadingText.style.display = "block"; // 显示加载文字
+
+      setTimeout(() => {
+        for (let i = 0; i < 10; i++) {
+          itemCount++;
+          addItem(`Item ${itemCount}`);
+        }
+        loading = false;
+        loadingText.style.display = "none"; // 隐藏加载文字
+      }, 1000);
+    }
+
+    // 监听滚动事件，判断是否接近底部
+    function handleScroll() {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight - 10 && !loading) {
+        loadMoreData();
+      }
+    }
+
+    // 绑定滚动事件
+    window.addEventListener("scroll", handleScroll);
+
+    // 初始加载
+    loadInitialData();
+  </script>
+
+</body>
+</html>
