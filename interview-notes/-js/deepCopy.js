@@ -1,13 +1,21 @@
 function deepClone(obj) {
-  if (obj === null || typeof obj !== "object") return obj;
-  let result = Array.isArray(obj) ? [] : {};
-  for (let key in obj) {
-    //只拷贝对象自身的属性，不考虑原型链上的属性
-    if (obj.hasOwnProperty(key)) {
-      result[key] = deepClone(obj[key]);
+  // if (obj === null || typeof obj !== "object") return obj;
+  // let result = Array.isArray(obj) ? [] : {};
+  // for (let key in obj) {
+  //   //只拷贝对象自身的属性，不考虑原型链上的属性
+  //   if (obj.hasOwnProperty(key)) {
+  //     result[key] = deepClone(obj[key]);
+  //   }
+  // }
+  // return result;
+  if(obj===null||typeof obj !=="object")return obj;
+  let res=Array.isArray(obj)?[]:{};
+  for(let key in obj){
+    if(obj.hasOwnProperty(key)){
+      res[key]=deepClone(obj[key]);
     }
   }
-  return result;
+  return res;
 }
 
 let obj = {

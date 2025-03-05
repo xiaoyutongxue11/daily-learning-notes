@@ -24,19 +24,35 @@ function customPromiseAll(promises) {
 }
 
 Promise.myAll = function (promises) {
+  // return new Promise((resolve, reject) => {
+  //   if (!Array.isArray(promises)) return new Error("Argument must be an array");
+  //   let result = [];
+  //   let completed = 0;
+  //   promises.forEach((p, index) => {
+  //     Promise.resolve(p)
+  //       .then((value) => {
+  //         result[index] = value;
+  //         completed++;
+  //         if (completed === promises.length) resolve(result);
+  //       })
+  //       .catch((value) => {
+  //         reject(value);
+  //       });
+  //   });
+  // });
   return new Promise((resolve, reject) => {
-    if (!Array.isArray(promises)) return new Error("Argument must be an array");
-    let result = [];
+    if (!Array.isArray(promises)) throw new Error("参数只能是数组");
+    let res = [];
     let completed = 0;
     promises.forEach((p, index) => {
       Promise.resolve(p)
-        .then((value) => {
-          result[index] = value;
+        .then((val) => {
           completed++;
-          if (completed === promises.length) resolve(result);
+          res[index] = val;
+          if (completed === promises.length) resolve(res);
         })
-        .catch((value) => {
-          reject(value);
+        .catch((val) => {
+          reject(val);
         });
     });
   });

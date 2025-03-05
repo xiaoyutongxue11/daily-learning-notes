@@ -12,14 +12,26 @@
 //   };
 // };
 
-function curry(func) {
-  return function curried(...args) {
-    if (args.length >= func.length) {
+// function curry(func) {
+//   return function curried(...args) {
+//     if (args.length >= func.length) {
+//       return func(...args);
+//     } else return function (...newArgs) {
+//       return curried(...args, ...newArgs);
+//     };
+//   };
+// }
+
+function curry(func){
+  return function curried(...args){
+    if(args.length>=func.length){
       return func(...args);
-    } else return function (...newArgs) {
-      return curried(...args, ...newArgs);
-    };
-  };
+    }else{
+      return function(...restArgs){
+        return curried(...args,...restArgs);
+      }
+    }
+  }
 }
 
 function add(a, b, c, d) {
@@ -27,4 +39,4 @@ function add(a, b, c, d) {
 }
 
 const curryAdd = curry(add);
-console.log(curryAdd(1, 2)(3, 4));
+console.log(curryAdd(1)(2)(3)(4));

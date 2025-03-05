@@ -1,19 +1,46 @@
+// Function.prototype.myBind = function (ctx) {
+//   if (typeof this !== "function") {
+//     throw new TypeError("Type Error");
+//   }
+//   let fn = this;
+//   let args = Array.prototype.slice.call(arguments, 1);
+//   return function F() {
+//     let restArgs = Array.prototype.slice.call(arguments);
+//     let allArgs = args.concat(restArgs);
+//     if (Object.getPrototypeOf(this) === F.prototype) {
+//       return new fn(...allArgs);
+//     } else {
+//       return fn.apply(ctx, allArgs);
+//     }
+//   };
+// };
 Function.prototype.myBind = function (ctx) {
-  if (typeof this !== "function") {
-    throw new TypeError("Type Error");
-  }
-  let fn = this;
+  if (typeof this !== "function") throw new Error("Type Error");
+  let fn=this;
   let args = Array.prototype.slice.call(arguments, 1);
-  return function F() {
+  return function f() {
     let restArgs = Array.prototype.slice.call(arguments);
     let allArgs = args.concat(restArgs);
-    if (Object.getPrototypeOf(this) === F.prototype) {
+    if (Object.getPrototypeOf(this) === f.prototype) {
       return new fn(...allArgs);
     } else {
       return fn.apply(ctx, allArgs);
     }
   };
 };
+
+// Function.prototype.myCall = function (ctx, ...args) {
+//   if (typeof this !== "function") throw new Error("Type Error");
+//   ctx = ctx === null || ctx === undefined ? globalThis : Object(ctx);
+//   let key = Symbol("key");
+//   Object.defineProperty(ctx, key, {
+//     enumerable: false,
+//     value: this,
+//   });
+//   let result = ctx[key](...args);
+//   delete ctx[key];
+//   return result;
+// };
 
 Function.prototype.myCall = function (ctx, ...args) {
   if (typeof this !== "function") throw new Error("Type Error");
@@ -23,10 +50,24 @@ Function.prototype.myCall = function (ctx, ...args) {
     enumerable: false,
     value: this,
   });
-  let result = ctx[key](...args);
+  let res = ctx[key](...args);
   delete ctx[key];
-  return result;
+  return res;
 };
+
+// Function.prototype.myApply = function (ctx, args) {
+//   if (typeof this !== "function") throw new Error("Type Error");
+//   ctx = ctx === null || ctx === undefined ? globalThis : Object(ctx);
+//   let key = Symbol("key");
+//   Object.defineProperty(ctx, key, {
+//     enumerable: false,
+//     value: this,
+//   });
+//   args = args ?? [];
+//   let result = ctx[key](...args);
+//   delete ctx[key];
+//   return result;
+// };
 
 Function.prototype.myApply = function (ctx, args) {
   if (typeof this !== "function") throw new Error("Type Error");
@@ -37,9 +78,9 @@ Function.prototype.myApply = function (ctx, args) {
     value: this,
   });
   args = args ?? [];
-  let result = ctx[key](...args);
+  let res = ctx[key](...args);
   delete ctx[key];
-  return result;
+  return res;
 };
 
 function sum(a, b, c, d) {
