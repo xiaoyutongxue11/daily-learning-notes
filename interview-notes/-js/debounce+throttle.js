@@ -7,7 +7,7 @@ function debounce(fn, delay = 1000) {
       fn.apply(this, args);
     }, delay);
   };
-}
+} 
 // 节流：在一段时间内多次进行操作，只会触发一次，多用在监听滚动、鼠标移动、按钮高频点击
 function throttle(fn, delay = 1000) {
   let lastTime;

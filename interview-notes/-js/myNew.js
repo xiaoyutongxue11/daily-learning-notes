@@ -20,13 +20,24 @@ function Person(name, age) {
 // 执行构造函数，绑定this为新创建的对象
 // 如果构造函数返回的是一个对象，则返回该对象，如果不是，则返回创建的对象
 
-function myNew(Constructor, ...args) {
+// function myNew(Constructor, ...args) {
+//   let obj = Object.create(Constructor.prototype);
+//   let res = Constructor.apply(obj, args);
+//   return typeof res === "object" ? res : obj;
+// }
+
+// const per = newObject(Person, "zhangsan", 18);
+// console.log(per.name);
+// console.log(per.age);
+// console.log(per instanceof Person);
+function newObj(Constructor, ...args) {
   let obj = Object.create(Constructor.prototype);
-  let res = Constructor.apply(obj, args);
-  return typeof res === "object" ? res : obj;
+  let result = Constructor.apply(obj, args);
+  return typeof result === "object" ? result : obj;
 }
 
-const per = newObject(Person, "zhangsan", 18);
+const per = newObj(Person, "aaa", 11);
 console.log(per.name);
 console.log(per.age);
 console.log(per instanceof Person);
+

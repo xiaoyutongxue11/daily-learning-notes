@@ -25,23 +25,23 @@ function customPromiseAll(promises) {
 
 Promise.myAll = function (promises) {
   // return new Promise((resolve, reject) => {
-  //   if (!Array.isArray(promises)) return new Error("Argument must be an array");
-  //   let result = [];
+  //   if (!Array.isArray(promises)) throw new Error("参数只能是数组");
+  //   let res = [];
   //   let completed = 0;
   //   promises.forEach((p, index) => {
   //     Promise.resolve(p)
-  //       .then((value) => {
-  //         result[index] = value;
+  //       .then((val) => {
   //         completed++;
-  //         if (completed === promises.length) resolve(result);
+  //         res[index] = val;
+  //         if (completed === promises.length) resolve(res);
   //       })
-  //       .catch((value) => {
-  //         reject(value);
+  //       .catch((val) => {
+  //         reject(val);
   //       });
   //   });
   // });
   return new Promise((resolve, reject) => {
-    if (!Array.isArray(promises)) throw new Error("参数只能是数组");
+    if (!Array.isArray(promises)) throw new Error("需要一个数组作为参数");
     let res = [];
     let completed = 0;
     promises.forEach((p, index) => {
@@ -59,24 +59,30 @@ Promise.myAll = function (promises) {
 };
 
 Promise.myAllSettled = function (promises) {
-  return new Promise((resolve, reject) => {
-    if (!Array.isArray(promises)) return new Error("Argument must be an array");
-    let result = [];
-    let completed = 0;
-    promises.forEach((p, index) => {
-      Promise.resolve(p)
-        .then((value) => {
-          result[index] = { status: "fullfilled", value };
-        })
-        .catch((value) => {
-          result[index] = { status: "rejected", value };
-        })
-        .finally(() => {
-          completed++;
-          if (completed === promises.length) resolve(result);
-        });
-    });
-  });
+  // return new Promise((resolve, reject) => {
+  //   if (!Array.isArray(promises)) return new Error("Argument must be an array");
+  //   let result = [];
+  //   let completed = 0;
+  //   promises.forEach((p, index) => {
+  //     Promise.resolve(p)
+  //       .then((value) => {
+  //         result[index] = { status: "fullfilled", value };
+  //       })
+  //       .catch((value) => {
+  //         result[index] = { status: "rejected", value };
+  //       })
+  //       .finally(() => {
+  //         completed++;
+  //         if (completed === promises.length) resolve(result);
+  //       });
+  //   });
+  // });
+  return new Promise((resolve,reject)=>{
+    if(!Array.isArray(promises))throw new Error("参数必须是不为空的数组");
+    let res=[];
+    let completed=0;
+    promises.forEach((p,index)=>{})
+  })
 };
 
 Promise.myAny = function (promises) {
