@@ -8,7 +8,7 @@ function deepClone(obj) {
   //   }
   // }
   // return result;
-  if(obj===null||typeof obj !=="object")return obj;
+  if(obj===null||typeof obj !=="object")return obj; 
   let res=Array.isArray(obj)?[]:{};
   for(let key in obj){
     if(obj.hasOwnProperty(key)){
