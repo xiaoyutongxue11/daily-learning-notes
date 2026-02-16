@@ -12,8 +12,8 @@ function divideRedEnvelope(totalAmount, numberOfPeople) {
   if (totalCents < numberOfPeople * minAmount) {
     throw new Error(
       `总金额过小，至少需要 ${((numberOfPeople * minAmount) / 100).toFixed(
-        2
-      )} 元`
+        2,
+      )} 元`,
     );
   }
 
@@ -29,7 +29,7 @@ function divideRedEnvelope(totalAmount, numberOfPeople) {
     // 确保随机金额不会导致剩余金额不足以分配后续红包（每人至少0.01元）
     const safeMax = Math.min(
       maxAllowed,
-      remainingCents - (remainingPeople - 1) * minAmount
+      remainingCents - (remainingPeople - 1) * minAmount,
     );
     const randomCents =
       Math.floor(Math.random() * (safeMax - minAmount + 1)) + minAmount;
@@ -45,7 +45,9 @@ function divideRedEnvelope(totalAmount, numberOfPeople) {
   return result;
 }
 
-function 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 // 测试示例
 try {
@@ -55,11 +57,11 @@ try {
 
   console.log(
     "红包分配结果：",
-    envelopes.map((amount) => amount.toFixed(2))
+    envelopes.map((amount) => amount.toFixed(2)),
   );
   console.log(
     "总和：",
-    envelopes.reduce((sum, amount) => sum + amount, 0).toFixed(2)
+    envelopes.reduce((sum, amount) => sum + amount, 0).toFixed(2),
   );
 } catch (error) {
   console.error("错误：", error.message);
